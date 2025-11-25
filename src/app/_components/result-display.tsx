@@ -13,22 +13,15 @@ import { TestTube } from 'lucide-react';
 
 
 const RiskBadge = ({ riskLevel }: { riskLevel: string }) => {
-  const variant =
-    riskLevel.toLowerCase() === 'high'
-      ? 'destructive'
-      : riskLevel.toLowerCase() === 'moderate'
-      ? 'secondary'
-      : 'default';
-  
   const badgeClass =
     riskLevel.toLowerCase() === 'high'
-      ? 'bg-red-500 text-white'
+      ? 'bg-destructive/80 text-destructive-foreground'
       : riskLevel.toLowerCase() === 'moderate'
-      ? 'bg-yellow-500 text-black'
-      : 'bg-green-500 text-white';
+      ? 'bg-yellow-500/80 text-black'
+      : 'bg-green-600/80 text-white';
 
   return (
-    <Badge variant="outline" className={cn("text-base border-2", badgeClass)}>
+    <Badge className={cn("text-base border-transparent", badgeClass)}>
       {riskLevel}
     </Badge>
   );
@@ -56,12 +49,12 @@ export function ResultDisplay({ result, isLoading, imagePreview }: { result: Ana
       return (
         <div className="space-y-6">
           <div>
-            <CardTitle className="font-headline text-3xl">{result.classification}</CardTitle>
+            <CardTitle className="text-3xl font-bold">{result.classification}</CardTitle>
             <CardDescription>Analysis Result</CardDescription>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Card className="bg-accent/50">
+            <Card className="bg-muted/50">
               <CardHeader>
                 <CardDescription>Risk Level</CardDescription>
               </CardHeader>
@@ -69,18 +62,18 @@ export function ResultDisplay({ result, isLoading, imagePreview }: { result: Ana
                 <RiskBadge riskLevel={result.riskLevel} />
               </CardContent>
             </Card>
-             <Card className="bg-accent/50">
+             <Card className="bg-muted/50">
               <CardHeader>
                 <CardDescription>Probability Score</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold font-headline">{(result.probability * 100).toFixed(1)}%</p>
+                <p className="text-2xl font-bold">{(result.probability * 100).toFixed(1)}%</p>
               </CardContent>
             </Card>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-2 font-headline">Probability Visualization</h3>
+            <h3 className="text-lg font-semibold mb-2">Probability Visualization</h3>
             <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -95,15 +88,15 @@ export function ResultDisplay({ result, isLoading, imagePreview }: { result: Ana
                     }}
                     formatter={(value: number) => [`${value.toFixed(1)}%`, "Probability"]}
                   />
-                  <Bar dataKey="value" fill="hsl(var(--chart-1))" radius={[0, 4, 4, 0]} barSize={30} />
+                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} barSize={30} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
-            <Alert>
-              <TestTube className="h-4 w-4" />
-              <AlertTitle>Disclaimer</AlertTitle>
-              <AlertDescription>
+            <Alert variant="default" className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
+              <TestTube className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <AlertTitle className="text-blue-800 dark:text-blue-300">Disclaimer</AlertTitle>
+              <AlertDescription className="text-blue-700 dark:text-blue-400">
                 This AI analysis is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.
               </AlertDescription>
             </Alert>
@@ -112,29 +105,36 @@ export function ResultDisplay({ result, isLoading, imagePreview }: { result: Ana
     }
 
     return (
-       <div className="flex flex-col items-center justify-center h-full text-center p-8">
-          <div className="p-4 bg-secondary rounded-full">
+       <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-muted/50 rounded-xl">
+          <div className="p-4 bg-background rounded-full border">
             <BoneIcon className="w-16 h-16 text-primary" />
           </div>
-          <h2 className="mt-6 text-2xl font-bold font-headline">Welcome to BoneCheck AI</h2>
-          <p className="mt-2 text-muted-foreground">
-            Upload an X-ray image of a bone to begin your osteoporosis risk assessment.
+          <h2 className="mt-6 text-2xl font-bold">Welcome to BoneCheck AI</h2>
+          <p className="mt-2 text-muted-foreground text-balance">
+            Upload an X-ray image of a bone to get started with your osteoporosis risk assessment.
           </p>
         </div>
     );
   };
 
   return (
-    <Card className="sticky top-8">
-      <CardHeader>
-        <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-            <Image
-                src={imagePreview}
-                alt="X-ray to be analyzed"
-                fill
-                className="object-contain"
-                data-ai-hint="xray bone"
-              />
+    <Card className="sticky top-24">
+       <CardHeader>
+        <CardTitle>2. View Result</CardTitle>
+        <CardDescription>See the analysis from our AI model.</CardDescription>
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted mt-4">
+            {imagePreview ? (
+              <Image
+                  src={imagePreview}
+                  alt="X-ray to be analyzed"
+                  fill
+                  className="object-contain"
+                />
+            ) : (
+              <div className="flex items-center justify-center h-full w-full bg-muted/50">
+                <p className="text-muted-foreground">Your image will appear here</p>
+              </div>
+            )}
         </div>
       </CardHeader>
       <CardContent>

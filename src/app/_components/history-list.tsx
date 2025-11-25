@@ -26,7 +26,7 @@ export function HistoryList({ history, onSelect, currentResultId }: HistoryListP
       <CardHeader>
         <div className="flex items-center gap-2">
             <History className="h-6 w-6"/>
-            <CardTitle className="font-headline">Analysis History</CardTitle>
+            <CardTitle>Analysis History</CardTitle>
         </div>
         <CardDescription>Your past analysis results.</CardDescription>
       </CardHeader>
@@ -59,7 +59,7 @@ export function HistoryList({ history, onSelect, currentResultId }: HistoryListP
           </Table>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-10 text-center text-muted-foreground">
+          <div className="flex flex-col items-center justify-center py-10 text-center text-muted-foreground bg-accent/50 rounded-lg">
             <Inbox className="w-12 h-12" />
             <p className="mt-4 text-sm">No history yet</p>
             <p className="text-xs">Your analysis results will appear here.</p>

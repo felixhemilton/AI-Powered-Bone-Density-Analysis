@@ -39,7 +39,7 @@ export function ImageUploader({ onImageUpload, onAnalyze, onClear, imagePreview,
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-headline">Upload X-ray Image</CardTitle>
+        <CardTitle>1. Upload X-ray</CardTitle>
         <CardDescription>Upload a bone X-ray for analysis.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
