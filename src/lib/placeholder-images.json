@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "xray-placeholder",
+      "description": "A placeholder image of an X-ray.",
+      "imageUrl": "https://images.unsplash.com/photo-1748712308122-3c173b1a0d6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx4cmF5JTIwYm9uZXxlbnwwfHx8fDE3NjQwNDc3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "xray bone"
+    }
+  ]
 }

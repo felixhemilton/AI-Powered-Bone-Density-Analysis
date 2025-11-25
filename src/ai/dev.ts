@@ -1,1 +1,5 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/assess-osteoporosis-risk.ts';
+import '@/ai/flows/provide-osteoporosis-probability.ts';
